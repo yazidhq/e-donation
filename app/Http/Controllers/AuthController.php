@@ -4,25 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function register()
     {
-       return view("auth.register");
+        if(auth()->check()){
+            return redirect()->route('home');
+        }
+        return view("auth.register");
     }
 
     public function store_register(Request $request)
     {
-        $request->validate([
-            'role' => 'required',
+        $data = $request->validate([
             'name' => 'required|string|max:250',
             'email' => 'required|email|max:250|unique:users',
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = new User();
+        $user = new User($data);
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -58,7 +61,7 @@ class AuthController extends Controller
             }
         }
 
-        return back()->withErrors('Email or password is wrong');
+        return back()->with('authenticate', 'Your email or password is incorrect');
     }
 
     public function logout(Request $request)
@@ -66,6 +69,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home')->withSuccess('You have logged out successfully!');;
+        return redirect()->route('login')->with('logout', 'You have logged out successfully!');;
     }
 }
