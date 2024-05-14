@@ -1,242 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('users.layout.template')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ ucfirst(request()->route()->getName()) }}</title>
-
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-
-<body>
-
-    <main>
-
-        {{-- navbar --}}
-        <section>
-            <div class="fixed-top">
-                <div class="bg-dark">
-                    <div class="container py-1">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-start gap-3">
-                                <p class="text-white mb-0"><i class="bi bi-whatsapp"></i> +62 333 4444 7777</p>
-                            </div>
-                            <div class="d-flex justify-content-end gap-3">
-                                <p class="text-white mb-0"><i class="bi bi-instagram mx-2"></i> e-donation</p>
-                                <p class="text-white mb-0"><i class="bi bi-linkedin"></i></i> e-donation</p>
-                            </div>
+@section('content')
+    <section>
+        <div class="container pb-5">
+            <p class="fs-1 fw-bold text-dark text-center pb-3">Why E-Donation</p>
+            <div class="row" data-aos="fade-top">
+                <div class="col-lg-4">
+                    <div class="card bg-info mb-3 border-0 shadow-sm p-4">
+                        <div class="card-body text-white text-center">
+                            <h1 class="card-title"><i class="bi bi-box2-heart"></i></h1>
+                            <p class="h3 fw-bold card-text">Trustworthy</p>
                         </div>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg shadow-sm bg-azure">
-                    <div class="container">
-                        <img src="{{ asset('img/logo.png') }}" class="img-fluid" width="30px">
-                        <a class="navbar-brand mx-2 fw-bold text-info" href="/">E-DONATION</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarText">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Products</a>
-                                </li>
-                            </ul>
-                            <span class="navbar-text">
-                                <ul class="navbar-nav">
-                                    @if (auth()->check())
-                                        <li class="nav-item">
-                                            <a class="nav-link fw-bold text-info"
-                                                href="/login">{{ Str::upper(auth()->user()->name) }}</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <form action="{{ route('logout') }}" method="POST">
-                                                @csrf
-                                                <button class="nav-link fw-bold text-info"
-                                                    href="/login">LOGOUT</button>
-                                            </form>
-                                        </li>
-                                    @else
-                                        <li class="nav-item">
-                                            <a class="nav-link fw-bold text-info" href="/login">LOGIN</a>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </span>
+                <div class="col-lg-4">
+                    <div class="card bg-info mb-3 border-0 shadow-sm p-4">
+                        <div class="card-body text-white text-center">
+                            <h1 class="card-title"><i class="bi bi-clipboard-heart"></i></h1>
+                            <p class="h3 fw-bold card-text">Honest</p>
                         </div>
                     </div>
-                </nav>
-            </div>
-        </section>
-
-        {{-- jumbroton --}}
-        <section>
-            <div class="bg-info" style="padding-top: 76px;">
-                <div class="pt-5">
-                    <div class="pt-5">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6" data-aos="fade-right">
-                                    <h1 class="display-1 fw-bold text-light">Change Lives</h1>
-                                    <p class="lead text-light">Lorem ipsum dolor sit amet consectetur,
-                                        adipisicing
-                                        elit.
-                                        Corporis
-                                        molestiae distinctio vero dicta numquam non necessitatibus itaque quae,
-                                        error
-                                        sapiente
-                                        laboriosam dolorum architecto, voluptates doloribus?</p>
-                                </div>
-                                <div class="col-md-6 text-end" data-aos="fade-left">
-                                    <img src="{{ asset('img/logo.png') }}" class="img-fluid"
-                                        style="width: 1000px; height: 300px; object-fit: cover">
-                                </div>
-                            </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card bg-info mb-3 border-0 shadow-sm p-4">
+                        <div class="card-body text-white text-center">
+                            <h1 class="card-title"><i class="bi bi-person-hearts"></i></h1>
+                            <p class="h3 fw-bold card-text">Integrity</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin-top: -1px">
-                <path fill="#24b9cc" fill-opacity="1"
-                    d="M0,64L17.1,96C34.3,128,69,192,103,186.7C137.1,181,171,107,206,112C240,117,274,203,309,229.3C342.9,256,377,224,411,202.7C445.7,181,480,171,514,176C548.6,181,583,203,617,213.3C651.4,224,686,224,720,192C754.3,160,789,96,823,80C857.1,64,891,96,926,122.7C960,149,994,171,1029,170.7C1062.9,171,1097,149,1131,165.3C1165.7,181,1200,235,1234,234.7C1268.6,235,1303,181,1337,160C1371.4,139,1406,149,1423,154.7L1440,160L1440,0L1422.9,0C1405.7,0,1371,0,1337,0C1302.9,0,1269,0,1234,0C1200,0,1166,0,1131,0C1097.1,0,1063,0,1029,0C994.3,0,960,0,926,0C891.4,0,857,0,823,0C788.6,0,754,0,720,0C685.7,0,651,0,617,0C582.9,0,549,0,514,0C480,0,446,0,411,0C377.1,0,343,0,309,0C274.3,0,240,0,206,0C171.4,0,137,0,103,0C68.6,0,34,0,17,0L0,0Z">
-                </path>
-            </svg>
-        </section>
+        </div>
+    </section>
 
-        {{-- superiority --}}
-        <section>
-            <div class="container pb-5">
-                <p class="fs-1 fw-bold text-dark text-center pb-3">Why E-Donation</p>
-                <div class="row" data-aos="fade-top">
-                    <div class="col-lg-4">
-                        <div class="card bg-info mb-3 border-0 shadow-sm p-4">
-                            <div class="card-body text-white text-center">
-                                <h1 class="card-title"><i class="bi bi-box2-heart"></i></h1>
-                                <p class="h3 fw-bold card-text">Trustworthy</p>
-                            </div>
-                        </div>
+    <section>
+        <div class="bg-azure py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset('img/about.png') }}" class="img-fluid">
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card bg-info mb-3 border-0 shadow-sm p-4">
-                            <div class="card-body text-white text-center">
-                                <h1 class="card-title"><i class="bi bi-clipboard-heart"></i></h1>
-                                <p class="h3 fw-bold card-text">Honest</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card bg-info mb-3 border-0 shadow-sm p-4">
-                            <div class="card-body text-white text-center">
-                                <h1 class="card-title"><i class="bi bi-person-hearts"></i></h1>
-                                <p class="h3 fw-bold card-text">Integrity</p>
-                            </div>
-                        </div>
+                    <div class="col-md-8 mt-5" data-aos="fade-right">
+                        <p class="fs-1 fw-bold text-dark">About Us</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, quibusdam nam!
+                            Placeat,
+                            nisi,
+                            consequuntur accusantium hic iusto ad nulla nostrum perspiciatis repudiandae dicta quia,
+                            in
+                            qui
+                            sunt
+                            vero fugit veniam incidunt quis iste officiis pariatur itaque voluptatem commodi vel!
+                            Quos
+                            officiis
+                            excepturi minima at dolore, consequuntur architecto atque placeat reiciendis?
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        {{-- about us --}}
-        <section>
-            <div class="bg-azure py-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="{{ asset('img/about.png') }}" class="img-fluid">
-                        </div>
-                        <div class="col-md-8 mt-5" data-aos="fade-right">
-                            <p class="fs-1 fw-bold text-dark">About Us</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, quibusdam nam!
-                                Placeat,
-                                nisi,
-                                consequuntur accusantium hic iusto ad nulla nostrum perspiciatis repudiandae dicta quia,
-                                in
-                                qui
-                                sunt
-                                vero fugit veniam incidunt quis iste officiis pariatur itaque voluptatem commodi vel!
-                                Quos
-                                officiis
-                                excepturi minima at dolore, consequuntur architecto atque placeat reiciendis?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {{-- footer --}}
-        <section>
-            <div class="bg-info">
-                <div class="py-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4 text-center pb-3">
-                                <h1 class="display-3 fw-bold text-light">E-DONATION</h1>
-                                <p class="h5 text-white">Your donation can change lives.</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h5 class="fw-bold text-light">PAGES</h5>
-                                <p class="text-white">
-                                    <a href="/" class="text-decoration-none text-white">Home</a>
-                                    < <br>
-                                        <a href="" class="text-decoration-none text-white">About Us</a>
-                                        < <br>
-                                            <a href="" class="text-decoration-none text-white">Products</a>
-                                            < </p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h5 class="fw-bold text-light">CONTACT US</h5>
-                                <p class="text-white">
-                                    <a href="" class="text-decoration-none text-white"><i
-                                            class="bi bi-telephone"></i> 021-222-3333-9999</a> <br>
-                                    <a href="" class="text-decoration-none text-white"><i
-                                            class="bi bi-geo-alt-fill"></i> DKI Jakarta</a> <br>
-                                    <a href="" class="text-decoration-none text-white"><i
-                                            class="bi bi-envelope"></i> e.donation@donate.com</a>
+    <section>
+        <div class="py-5">
+            <div class="container">
+                <p class="fs-1 fw-bold text-dark text-center pb-3">Products</p>
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    <div class="col">
+                        <div class="card h-100 rounded-0 shadow">
+                            <div class="card-body p-4 text-center border-top border-info border-3">
+                                <h5 class="card-title fw-bold text-dark pt-3">ESSENTIAL</h5>
+                                <p class="card-text">includes essential needs</p>
+                                <p class="card-text mt-5">Rp. <strong
+                                        class="display-6 fw-bold text-dark">450.000</strong>/packet
                                 </p>
+                                <p class="fw-bold text-info">+ Free reusable bag</p>
+                            </div>
+                            <div class="d-grid px-3 pb-3">
+                                <button class="btn btn-info text-white">CheckOut</button>
+                            </div>
+                            <div class="card-footer border-0">
+                                <small class="text-body-secondary"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 rounded-0 shadow">
+                            <div class="card-body p-4 text-center border-top border-info border-3">
+                                <h5 class="card-title fw-bold text-dark pt-3">STANDARD</h5>
+                                <p class="card-text">additional important items</p>
+                                <p class="card-text mt-5">Rp. <strong
+                                        class="display-6 fw-bold text-dark">670.000</strong>/packet
+                                </p>
+                                <p class="fw-bold text-info">+ Free hand sanitizer</p>
+                            </div>
+                            <div class="d-grid px-3 pb-3">
+                                <button class="btn btn-info text-white">CheckOut</button>
+                            </div>
+                            <div class="card-footer border-0">
+                                <small class="text-body-secondary"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 rounded-0 shadow">
+                            <div class="card-body p-4 text-center border-top border-info border-3">
+                                <h5 class="card-title fw-bold text-dark pt-3">DELUXE</h5>
+                                <p class="card-text">various items for wider</p>
+                                <p class="card-text mt-5">Rp. <strong
+                                        class="display-6 fw-bold text-dark">790.000</strong>/packet
+                                </p>
+                                <p class="fw-bold text-info">+ Free set of face masks</p>
+                            </div>
+                            <div class="d-grid px-3 pb-3">
+                                <button class="btn btn-info text-white">CheckOut</button>
+                            </div>
+                            <div class="card-footer border-0">
+                                <small class="text-body-secondary"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 rounded-0 shadow">
+                            <div class="card-body p-4 text-center border-top border-info border-3">
+                                <h5 class="card-title fw-bold text-dark pt-3">GOLD</h5>
+                                <p class="card-text">high-quality and diverse items</p>
+                                <p class="card-text mt-5">Rp. <strong
+                                        class="display-6 fw-bold text-dark">995.000</strong>/packet
+                                </p>
+                                <p class="fw-bold text-info">+ Free personal hygiene kit</p>
+                            </div>
+                            <div class="d-grid px-3 pb-3">
+                                <button class="btn btn-info text-white">CheckOut</button>
+                            </div>
+                            <div class="card-footer border-0">
+                                <small class="text-body-secondary"></small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="bg-dark">
-                <div class="d-flex justify-content-center gap-3 py-3">
-                    <p class="text-white mb-0"><i class="bi bi-instagram mx-2"></i> e-donation</p>
-                    <p class="text-white mb-0"><i class="bi bi-whatsapp"></i> +62 333 4444 7777</p>
-                    <p class="text-white mb-0"><i class="bi bi-linkedin"></i></i> e-donation</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
-</body>
-
-</html>
+        </div>
+    </section>
+@endsection
