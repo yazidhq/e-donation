@@ -1,0 +1,41 @@
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #f0ffff;
+}
+::-webkit-scrollbar-thumb {
+    background: #0f3649;
+}
+/* scrollbar */
+
+/* text color */
+.text-info {
+    color: #24b9cc !important;
+}
+.text-dark {
+    color: #0f3649 !important;
+}
+/* text color */
+
+/* background color */
+.bg-info {
+    background-color: #24b9cc !important;
+}
+.bg-dark {
+    background-color: #0f3649 !important;
+}
+.bg-azure {
+    background-color: #f0ffff;
+}
+/* background color */
+
+/* card scale hover */
+.card {
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+/* card scale hover */

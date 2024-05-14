@@ -3,7 +3,7 @@
 @section('content')
     <section>
         <div class="d-flex justify-content-center align-items-center vh-100"
-            style="background-image: linear-gradient(to left, #24b9cc, #1f6aeb)">
+            style="background-image: linear-gradient(to left, #24b9cc, #2494cc)">
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0 text-center">
@@ -12,13 +12,15 @@
                         </div>
                     </div>
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <div class="card border-0 shadow" style="background-color: #1f6aeb" data-aos="fade-right">
+                        <div class="card border-0 shadow" style="background-color: #2494cc" data-aos="fade-right">
                             <div class="card-body py-5 px-md-5">
                                 <form action="{{ route('authenticate') }}" method="POST">
                                     @csrf
 
                                     <div class="text-white">
-                                        <h1 class="fw-bold mb-5">E-Donation</h1>
+                                        <a href="/" class="text-light text-decoration-none">
+                                            <h1 class="fw-bold mb-5">E-Donation</h1>
+                                        </a>
                                         <h3 class="fw-bold">Login to your account</h3>
                                         <p class="mb-3">Let's get started</p>
                                     </div>
