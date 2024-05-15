@@ -6,7 +6,7 @@
             <p class="fs-1 fw-bold text-dark text-center pb-3">Why E-Donation</p>
             <div class="row" data-aos="fade-top">
                 <div class="col-lg-4">
-                    <div class="card bg-info mb-3 border-0 shadow p-4">
+                    <div class="card bg-info mb-3 border-0 shadow p-4 card-pop">
                         <div class="card-body text-white text-center">
                             <h1 class="card-title"><i class="bi bi-box2-heart"></i></h1>
                             <p class="h3 fw-bold card-text">Trustworthy</p>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="card bg-info mb-3 border-0 shadow p-4">
+                    <div class="card bg-info mb-3 border-0 shadow p-4 card-pop">
                         <div class="card-body text-white text-center">
                             <h1 class="card-title"><i class="bi bi-clipboard-heart"></i></h1>
                             <p class="h3 fw-bold card-text">Honest</p>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="card bg-info mb-3 border-0 shadow p-4">
+                    <div class="card bg-info mb-3 border-0 shadow p-4 card-pop">
                         <div class="card-body text-white text-center">
                             <h1 class="card-title"><i class="bi bi-person-hearts"></i></h1>
                             <p class="h3 fw-bold card-text">Integrity</p>
@@ -66,7 +66,7 @@
                 <p class="fs-1 fw-bold text-dark text-center pb-3">Products</p>
                 <div class="row row-cols-1 row-cols-md-4 g-4">
                     <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0">
+                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
                             <div class="card-body p-4 text-center border-top border-info border-3">
                                 <h5 class="card-title fw-bold text-dark pt-3">ESSENTIAL</h5>
                                 <p class="card-text">includes essential needs</p>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0">
+                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
                             <div class="card-body p-4 text-center border-top border-info border-3">
                                 <h5 class="card-title fw-bold text-dark pt-3">STANDARD</h5>
                                 <p class="card-text">additional important items</p>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0">
+                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
                             <div class="card-body p-4 text-center border-top border-info border-3">
                                 <h5 class="card-title fw-bold text-dark pt-3">DELUXE</h5>
                                 <p class="card-text">various items for wider</p>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0">
+                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
                             <div class="card-body p-4 text-center border-top border-info border-3">
                                 <h5 class="card-title fw-bold text-dark pt-3">GOLD</h5>
                                 <p class="card-text">high-quality and diverse items</p>

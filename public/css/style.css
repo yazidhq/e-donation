@@ -32,10 +32,10 @@
 /* background color */
 
 /* card scale hover */
-.card {
+.card-pop {
     transition: transform 0.3s ease;
 }
-.card:hover {
+.card-pop:hover {
     transform: scale(1.05);
 }
 /* card scale hover */
