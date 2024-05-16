@@ -1,5 +1,9 @@
 @extends('users.layout.template')
 
+@section('jumbroton')
+    @include('users.layout.jumbroton')
+@endsection
+
 @section('content')
     <section>
         <div class="container pb-5">
@@ -134,7 +138,7 @@
                                                         Order</button>
                                                 </div>
                                             </form>
-                                        @elseif(auth()->user()->role == 'admin')
+                                        @elseif(auth()->check() && auth()->user()->role == 'admin')
                                             <form action="{{ route('logout') }}" method="POST">
                                                 @csrf
                                                 <div class="d-grid">

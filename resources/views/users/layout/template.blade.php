@@ -26,7 +26,8 @@
     <main>
 
         @include('users.layout.navbar')
-        @include('users.layout.jumbroton')
+
+        @yield('jumbroton')
 
         @yield('content')
 

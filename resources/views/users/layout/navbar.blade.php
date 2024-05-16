@@ -31,13 +31,13 @@
                         <ul class="navbar-nav">
                             @if (auth()->check())
                                 <li class="nav-item">
-                                    <a class="nav-link fw-bold text-info"
-                                        href="/login">{{ Str::upper(auth()->user()->name) }}</a>
+                                    <a href="/profile"
+                                        class="nav-link fw-bold text-info">{{ Str::upper(auth()->user()->name) }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button class="nav-link fw-bold text-info" href="/login">LOGOUT</button>
+                                        <button class="nav-link fw-bold text-info">LOGOUT</button>
                                     </form>
                                 </li>
                             @else

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -15,6 +16,7 @@ Route::get('/', function () {
 
 Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
     Route::resource('/order', OrderController::class);
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 });
 
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
