@@ -39,3 +39,11 @@
     transform: scale(1.05);
 }
 /* card scale hover */
+
+/* button */
+.btn-info {
+    background-color: #24b9cc;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px lightblue;
+}
+/* button */

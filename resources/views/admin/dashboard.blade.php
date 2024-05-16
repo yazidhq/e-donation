@@ -3,15 +3,7 @@
 @section('content')
     <main id="main" class="main bg-azure">
 
-        <div class="pagetitle">
-            <h1>DASHBOARD</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
+        @include('admin.components.breadcrumb')
 
         <section class="section dashboard">
             <div class="row">

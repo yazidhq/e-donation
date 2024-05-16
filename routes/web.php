@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('home');
@@ -11,6 +12,7 @@ Route::get('/', function () {
 
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::resource('/product', ProductController::class);
 });
 
 Route::controller(AuthController::class)->group(function () {
