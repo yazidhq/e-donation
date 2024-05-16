@@ -65,78 +65,26 @@
             <div class="container">
                 <p class="fs-1 fw-bold text-dark text-center pb-3">Products</p>
                 <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
-                            <div class="card-body p-4 text-center border-top border-info border-3">
-                                <h5 class="card-title fw-bold text-dark pt-3">ESSENTIAL</h5>
-                                <p class="card-text">includes essential needs</p>
-                                <p class="card-text mt-5">Rp. <strong
-                                        class="display-6 fw-bold text-dark">450.000</strong>/packet
-                                </p>
-                                <p class="fw-bold text-info">+ Free reusable bag</p>
-                            </div>
-                            <div class="d-grid px-3 pb-3">
-                                <button class="btn btn-info text-white">CheckOut</button>
-                            </div>
-                            <div class="card-footer border-0">
-                                <small class="text-body-secondary"></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
-                            <div class="card-body p-4 text-center border-top border-info border-3">
-                                <h5 class="card-title fw-bold text-dark pt-3">STANDARD</h5>
-                                <p class="card-text">additional important items</p>
-                                <p class="card-text mt-5">Rp. <strong
-                                        class="display-6 fw-bold text-dark">670.000</strong>/packet
-                                </p>
-                                <p class="fw-bold text-info">+ Free hand sanitizer</p>
-                            </div>
-                            <div class="d-grid px-3 pb-3">
-                                <button class="btn btn-info text-white">CheckOut</button>
-                            </div>
-                            <div class="card-footer border-0">
-                                <small class="text-body-secondary"></small>
+                    @foreach ($products as $item)
+                        <div class="col">
+                            <div class="card h-100 rounded-0 shadow border-0 card-pop">
+                                <div class="card-body p-4 text-center border-top border-info border-3">
+                                    <h5 class="card-title fw-bold text-dark pt-3">{{ Str::upper($item->name) }}</h5>
+                                    <p class="card-text">{{ $item->description }}</p>
+                                    <p class="card-text mt-5">Rp. <strong
+                                            class="display-6 fw-bold text-dark">{{ number_format($item->price, 0, ',', '.') }}</strong>/packet
+                                    </p>
+                                    <p class="fw-bold text-info">+ {{ ucfirst($item->free) }}</p>
+                                </div>
+                                <div class="d-grid px-3 pb-3">
+                                    <button class="btn btn-info text-white">Check Out</button>
+                                </div>
+                                <div class="card-footer border-0">
+                                    <small class="text-body-secondary"></small>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
-                            <div class="card-body p-4 text-center border-top border-info border-3">
-                                <h5 class="card-title fw-bold text-dark pt-3">DELUXE</h5>
-                                <p class="card-text">various items for wider</p>
-                                <p class="card-text mt-5">Rp. <strong
-                                        class="display-6 fw-bold text-dark">790.000</strong>/packet
-                                </p>
-                                <p class="fw-bold text-info">+ Free set of face masks</p>
-                            </div>
-                            <div class="d-grid px-3 pb-3">
-                                <button class="btn btn-info text-white">CheckOut</button>
-                            </div>
-                            <div class="card-footer border-0">
-                                <small class="text-body-secondary"></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 rounded-0 shadow border-0 card-pop">
-                            <div class="card-body p-4 text-center border-top border-info border-3">
-                                <h5 class="card-title fw-bold text-dark pt-3">GOLD</h5>
-                                <p class="card-text">high-quality and diverse items</p>
-                                <p class="card-text mt-5">Rp. <strong
-                                        class="display-6 fw-bold text-dark">995.000</strong>/packet
-                                </p>
-                                <p class="fw-bold text-info">+ Free personal hygiene kit</p>
-                            </div>
-                            <div class="d-grid px-3 pb-3">
-                                <button class="btn btn-info text-white">CheckOut</button>
-                            </div>
-                            <div class="card-footer border-0">
-                                <small class="text-body-secondary"></small>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

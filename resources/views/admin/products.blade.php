@@ -48,7 +48,8 @@
                                         </div>
                                         <br>
                                         <label for="free" class="form-label">Free</label>
-                                        <input type="text" id="free" class="form-control" name="free" required>
+                                        <input type="text" id="free" class="form-control" name="free"
+                                            value="Free ">
                                         <br>
                                         <button type="submit" class="btn btn-info text-white">Submit</button>
                                     </form>
@@ -90,12 +91,14 @@
                                         @foreach ($products as $item)
                                             <tr>
                                                 <td>
-                                                    <p class="text-info fw-bold">{{ $item->name }}</p>
+                                                    <p class="text-info fw-bold">{{ Str::upper($item->name) }}</p>
                                                 </td>
                                                 <td>{{ $item->description }}</td>
                                                 <td>IDR {{ number_format($item->price, 0, ',', '.') }}</td>
                                                 <td>{{ $item->stock }}</td>
-                                                <td>{{ $item->free }}</td>
+                                                <td>
+                                                    <p class="text-info fw-bold">+ {{ ucfirst($item->free) }}</p>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex gap-1">
                                                         <button class="btn btn-sm btn-warning text-white"
