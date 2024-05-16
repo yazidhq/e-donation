@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('destination');
             $table->string('weight');
             $table->string('courier');
+            $table->string('shipping_cost');
             $table->string('status')->default('preparation');
             $table->timestamps();
 
