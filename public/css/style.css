@@ -44,6 +44,11 @@
 .btn-info {
     background-color: #24b9cc;
     border-radius: 5px;
-    box-shadow: 1px 1px 5px lightblue;
+    border: 0;
+}
+.btn-info:hover {
+    background-color: #1393a3;
+    border-radius: 5px;
+    border: 0;
 }
 /* button */
