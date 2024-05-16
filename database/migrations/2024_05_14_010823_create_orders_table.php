@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->string('customer_name');
             $table->string('customer_email');
             $table->string('customer_phone');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign("user_id")->on("users")->references("id");
+            $table->foreign("product_id")->on("products")->references("id");
         });
     }
 

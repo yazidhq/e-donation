@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 
@@ -11,6 +12,10 @@ Route::get('/', function () {
     $products = Product::get();
     return view('home', compact('products'));
 })->name('home');
+
+Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
+    Route::resource('/order', OrderController::class);
+});
 
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');

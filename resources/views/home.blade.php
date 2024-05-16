@@ -77,10 +77,80 @@
                                     <p class="fw-bold text-info">+ {{ ucfirst($item->free) }}</p>
                                 </div>
                                 <div class="d-grid px-3 pb-3">
-                                    <button class="btn btn-info text-white">Check Out</button>
+                                    <button class="btn btn-info text-white" data-bs-toggle="modal"
+                                        data-bs-target="#checkout{{ $item->id }}">Check Out</button>
+
                                 </div>
                                 <div class="card-footer border-0">
                                     <small class="text-body-secondary"></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="checkout{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="addNewProductLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="addNewProductLabel">
+                                            ADD ORDER - {{ Str::upper($item->name) }}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @if (auth()->check() && auth()->user()->role == 'user')
+                                            <form action="{{ route('order.store') }}" method="POST">
+                                                @csrf
+                                                <input hidden type="number" name="user_id"
+                                                    value="{{ auth()->user()->id }}">
+                                                <input hidden type="number" name="product_id" value="{{ $item->id }}">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="customer_name" class="form-label">Name</label>
+                                                        <input type="text" id="customer_name" class="form-control"
+                                                            name="customer_name" value="{{ auth()->user()->name }}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="customer_email" class="form-label">Email</label>
+                                                        <input type="text" id="customer_email" class="form-control"
+                                                            name="customer_email" value="{{ auth()->user()->email }}">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="customer_phone" class="form-label">Phone Number</label>
+                                                        <input type="number" id="customer_phone" class="form-control"
+                                                            name="customer_phone" required>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="amount" class="form-label">Amount of Packet</label>
+                                                        <input type="number" id="amount" class="form-control"
+                                                            name="amount" value="1">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="d-grid">
+                                                    <button type="submit" class="btn btn-info text-white">Add
+                                                        Order</button>
+                                                </div>
+                                            </form>
+                                        @elseif(auth()->user()->role == 'admin')
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <div class="d-grid">
+                                                    <button class="btn btn-info text-white">Login to
+                                                        user
+                                                        Account</button>
+                                                </div>
+                                            </form>
+                                        @else
+                                            <div class="d-grid">
+                                                <a href="/login" type="submit" class="btn btn-info text-white">Login to
+                                                    your
+                                                    Account</a>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

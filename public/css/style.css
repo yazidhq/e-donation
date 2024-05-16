@@ -52,3 +52,9 @@
     border: 0;
 }
 /* button */
+
+/* modal */
+.modal-content {
+    border-radius: 0;
+}
+/* modal */
