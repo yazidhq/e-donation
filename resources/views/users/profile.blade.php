@@ -87,27 +87,31 @@
                                 <div class="col-sm-2">
                                     <div class="row mt-3">
                                         <div class="col-4">
-                                            <form action="{{ route('subtract_quantity', $item->id) }}" method="POST">
-                                                @csrf
-                                                <input hidden type="text" name="amount" value="1">
-                                                <button type="submit"
-                                                    class="btn btn-info btn-sm rounded-circle text-white">
-                                                    <i class="bi bi-dash"></i>
-                                                </button>
-                                            </form>
+                                            @if ($item->transaction->status == 'pending')
+                                                <form action="{{ route('subtract_quantity', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="amount" value="1">
+                                                    <button type="submit"
+                                                        class="btn btn-info btn-sm rounded-circle text-white">
+                                                        <i class="bi bi-dash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                         <div class="col-4">
                                             <p class="ms-2">{{ $item->amount }}</p>
                                         </div>
                                         <div class="col-4">
-                                            <form action="{{ route('add_quantity', $item->id) }}" method="POST">
-                                                @csrf
-                                                <input hidden type="text" name="amount" value="1">
-                                                <button type="submit"
-                                                    class="btn btn-info btn-sm rounded-circle text-white">
-                                                    <i class="bi bi-plus"></i>
-                                                </button>
-                                            </form>
+                                            @if ($item->transaction->status == 'pending')
+                                                <form action="{{ route('add_quantity', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="amount" value="1">
+                                                    <button type="submit"
+                                                        class="btn btn-info btn-sm rounded-circle text-white">
+                                                        <i class="bi bi-plus"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -192,9 +196,11 @@
                                             </div>
                                         @elseif($item->is_created_shipment)
                                             <div class="d-flex justify-content-center gap-1">
-                                                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
-                                                    data-bs-target="#shipment_edit{{ $item->id }}"
-                                                    title="Edit Shipment"><i class="bi bi-pencil-square"></i></button>
+                                                @if ($item->shipment->status == 'payment pending')
+                                                    <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
+                                                        data-bs-target="#shipment_edit{{ $item->id }}"
+                                                        title="Edit Shipment"><i class="bi bi-pencil-square"></i></button>
+                                                @endif
                                                 <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
                                                     data-bs-target="#shipment_detail{{ $item->id }}"
                                                     title="Shipment Detail"><i class="bi bi-eye"></i></button>
@@ -329,6 +335,13 @@
                                                                         <span>Payment pending</span>
                                                                     </div>
                                                                 </div>
+                                                            @else
+                                                                <div class="d-grid">
+                                                                    <div class="badge text-bg-success text-white py-2"
+                                                                        style="opacity: 0.7">
+                                                                        <span>Paid</span>
+                                                                    </div>
+                                                                </div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -352,20 +365,27 @@
                                             </div>
                                         @elseif($item->is_created_shipment)
                                             <div class="d-flex justify-content-center gap-1">
-                                                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
-                                                    data-bs-target="#order_edit{{ $item->id }}"><i
-                                                        class="bi bi-pencil-square" title="Edit Order"></i></button>
-                                                <form id="deleteForm_{{ $item->id }}"
-                                                    action="{{ route('cancel_order', $item->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="button"
-                                                        class="btn btn-info btn-sm text-white delete-order"
-                                                        data-id="{{ $item->id }}" title="Cancel Order"><i
-                                                            class="bi bi-calendar-x"></i></button>
-                                                </form>
-                                                <button class="btn btn-info btn-sm text-white pay-button"
-                                                    data-transaction="{{ $item->transaction->snapToken }}">Pay
-                                                    Now</button>
+                                                @if ($item->transaction->status == 'pending')
+                                                    <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
+                                                        data-bs-target="#order_edit{{ $item->id }}"><i
+                                                            class="bi bi-pencil-square" title="Edit Order"></i></button>
+                                                    <form id="deleteForm_{{ $item->id }}"
+                                                        action="{{ route('cancel_order', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="button"
+                                                            class="btn btn-info btn-sm text-white delete-order"
+                                                            data-id="{{ $item->id }}" title="Cancel Order"><i
+                                                                class="bi bi-calendar-x"></i></button>
+                                                    </form>
+                                                    <button class="btn btn-info btn-sm text-white pay-button"
+                                                        data-transaction="{{ $item->transaction->snapToken }}"
+                                                        data-transaction-id="{{ $item->transaction->id }}">Pay
+                                                        Now</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm text-white"
+                                                        @disabled(true)>Payment
+                                                        Successful</button>
+                                                @endif
                                             </div>
                                             <div class="modal fade" id="order_edit{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="addNewProductLabel" aria-hidden="true">
@@ -446,10 +466,11 @@
             document.querySelectorAll('.pay-button').forEach(button => {
                 button.addEventListener('click', function() {
                     const dataTransaction = this.getAttribute('data-transaction');
+                    const dataTransactionId = this.getAttribute('data-transaction-id');
                     snap.pay(dataTransaction, {
                         onSuccess: function(result) {
-                            document.getElementById('result-json').innerHTML += JSON
-                                .stringify(result, null, 2);
+                            window.location.href =
+                                "/update_payment_status/" + dataTransactionId;
                         },
                         onPending: function(result) {
                             document.getElementById('result-json').innerHTML += JSON
