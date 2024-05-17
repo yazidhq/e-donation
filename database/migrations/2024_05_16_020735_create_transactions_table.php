@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->timestamps();
 
-            $table->foreign("order_id")->on("orders")->references("id");
+            $table->foreign("order_id")->on("orders")->references("id")->onDelete("cascade");
         });
     }
 

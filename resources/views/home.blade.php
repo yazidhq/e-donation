@@ -92,8 +92,8 @@
                         </div>
                         <div class="modal fade" id="checkout{{ $item->id }}" tabindex="-1"
                             aria-labelledby="addNewProductLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+                            <div class="modal-dialog border-top border-5 border-info">
+                                <div class="modal-content border-0">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="addNewProductLabel">
                                             ADD ORDER - {{ Str::upper($item->name) }}</h1>

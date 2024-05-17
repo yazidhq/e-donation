@@ -22,8 +22,8 @@ return new class extends Migration
             $table->boolean('is_created_shipment')->default(0);
             $table->timestamps();
 
-            $table->foreign("user_id")->on("users")->references("id");
-            $table->foreign("product_id")->on("products")->references("id");
+            $table->foreign("user_id")->on("users")->references("id")->onDelete("cascade");
+            $table->foreign("product_id")->on("products")->references("id")->onDelete("cascade");
         });
     }
 

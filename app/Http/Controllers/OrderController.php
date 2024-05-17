@@ -18,6 +18,31 @@ class OrderController extends Controller
         $order->amount = $request->amount;
         $order->save();
         
-        return redirect()->back()->with('product', 'Product has been created successfully!');
+        return redirect()->route('profile')->with('order', 'Order has been addedd successfully, create Shipment now!');
+    }
+
+    public function update(Request $request, Int $id){
+        $order = Order::where('id', $id)->first();
+        $order->update($request->all());
+
+        return redirect()->back()->with('order', 'Your order has been updated successfully!');
+    }
+
+    public function add_quantity(Request $request, Int $id){
+        $order = Order::where('id', $id)->first();
+        $order->amount += $request->amount;
+        $order->save();
+        return redirect()->back()->with('order', 'Your quantity order has been added successfully!');
+    }
+
+    public function subtract_quantity(Request $request, Int $id){
+        $order = Order::where('id', $id)->first();
+        if($order->amount == "1"){
+            return redirect()->back()->with('order', 'Failed subtract quantity, your quantity is a minimum!');
+        } else{
+            $order->amount -= $request->amount;
+            $order->save();
+            return redirect()->back()->with('order', 'Your quantity order has been subtract successfully!');
+        }
     }
 }

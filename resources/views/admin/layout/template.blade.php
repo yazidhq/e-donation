@@ -70,7 +70,7 @@
                         text: "Anda tidak akan dapat mengembalikan tindakan ini!",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
+                        confirmButtonColor: '#24b9cc',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Ya, hapus!',
                         cancelButtonText: 'Batal'

@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('province');
             $table->string('postal_code');
             $table->string('address');
-            $table->string('status')->default('preparation');
+            $table->string('status')->default('payment pending');
             $table->timestamps();
 
-            $table->foreign("order_id")->on("orders")->references("id");
+            $table->foreign("order_id")->on("orders")->references("id")->onDelete("cascade");
         });
     }
 
