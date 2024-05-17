@@ -78,6 +78,8 @@
         });
     </script>
 
+    @yield('script-payment')
+
 </body>
 
 </html>

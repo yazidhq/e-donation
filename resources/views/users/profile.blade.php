@@ -359,7 +359,27 @@
                                                         data-id="{{ $item->id }}" title="Cancel Order"><i
                                                             class="bi bi-calendar-x"></i></button>
                                                 </form>
-                                                <button class="btn btn-info btn-sm text-white">Pay Now</button>
+                                                <button class="btn btn-info btn-sm text-white" id="pay-button">Pay
+                                                    Now</button>
+                                                @section('script-payment')
+                                                    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
+                                                    </script>
+                                                    <script type="text/javascript">
+                                                        document.getElementById('pay-button').onclick = function() {
+                                                            snap.pay('{{ $item->transaction->snapToken }}', {
+                                                                onSuccess: function(result) {
+                                                                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                                                                },
+                                                                onPending: function(result) {
+                                                                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                                                                },
+                                                                onError: function(result) {
+                                                                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                                                                }
+                                                            });
+                                                        };
+                                                    </script>
+                                                @endsection
                                             </div>
                                             <div class="modal fade" id="order_edit{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="addNewProductLabel" aria-hidden="true">

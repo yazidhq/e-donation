@@ -40,4 +40,9 @@ class Order extends Model
     {
         return $this->hasOne(Shipment::class, 'order_id', 'id');
     }
+
+    public function transaction(): HasOne
+    {
+        return $this->hasOne(Transaction::class, 'order_id', 'id');
+    }
 }

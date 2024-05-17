@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('status')->default('pending');
+            $table->string('snapToken')->nullable(true);
             $table->timestamps();
 
             $table->foreign("order_id")->on("orders")->references("id")->onDelete("cascade");
