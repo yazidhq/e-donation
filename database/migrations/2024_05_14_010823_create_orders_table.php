@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('customer_email');
             $table->string('customer_phone');
             $table->string('amount');
+            $table->boolean('is_created_shipment')->default(0);
             $table->timestamps();
 
             $table->foreign("user_id")->on("users")->references("id");
