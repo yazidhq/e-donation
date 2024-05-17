@@ -60,9 +60,4 @@ class UserController extends Controller
 
         return redirect()->back()->with('order', 'Your shipment has been updated successfully!');
     }
-
-    public function cancel_order(Int $id){
-        Order::where('id', $id)->delete();
-        return redirect()->back()->with('order', 'Your order has been deleted successfully!');
-    }
 }

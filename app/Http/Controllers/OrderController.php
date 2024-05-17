@@ -45,4 +45,9 @@ class OrderController extends Controller
             return redirect()->back()->with('order', 'Your quantity order has been subtract successfully!');
         }
     }
+
+    public function cancel_order(Int $id){
+        Order::where('id', $id)->delete();
+        return redirect()->back()->with('order', 'Your order has been deleted successfully!');
+    }
 }

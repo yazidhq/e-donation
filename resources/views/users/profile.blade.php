@@ -407,7 +407,7 @@
                                                                             Packet</label>
                                                                         <input type="number" id="amount"
                                                                             class="form-control" name="amount"
-                                                                            value="{{ $item->amount }}">
+                                                                            value="{{ $item->amount }}" min="1">
                                                                     </div>
                                                                 </div>
                                                                 <br>

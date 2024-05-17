@@ -129,7 +129,7 @@
                                                     <div class="col-md-6">
                                                         <label for="amount" class="form-label">Amount of Packet</label>
                                                         <input type="number" id="amount" class="form-control"
-                                                            name="amount" value="1">
+                                                            name="amount" value="1" min="1">
                                                     </div>
                                                 </div>
                                                 <br>
