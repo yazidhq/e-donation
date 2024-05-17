@@ -58,7 +58,7 @@ class OrderController extends Controller
     }
 
     public function update(Request $request, Int $id){
-        $order = Order::where('id', $id)->first();
+        $order = Order::with('product')->where('id', $id)->first();
         $order->update($request->all());
 
         return redirect()->back()->with('order', 'Your order has been updated successfully!');
@@ -69,7 +69,7 @@ class OrderController extends Controller
         DB::beginTransaction(); 
 
         try {
-            $order = Order::where('id', $id)->first();
+            $order = Order::with('product', 'transaction')->where('id', $id)->first();
             $order->amount += $request->amount;
             $order->save();
 
@@ -90,7 +90,7 @@ class OrderController extends Controller
         DB::beginTransaction(); 
 
         try {
-            $order = Order::where('id', $id)->first();
+            $order = Order::with('product', 'transaction')->where('id', $id)->first();
             if($order->amount == "1"){
                 return redirect()->back()->with('order', 'Failed subtract quantity, your quantity is a minimum!');
             } else{
