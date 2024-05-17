@@ -19,18 +19,18 @@
                                             value="{{ auth()->user()->name }}">
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="name"
+                                        <label for="email"
                                             class="form-label text-dark d-flex justify-content-center">Your
-                                            Name</label>
-                                        <input type="text" id="name" class="form-control border-info" name="name"
-                                            value="{{ auth()->user()->name }}">
+                                            Email</label>
+                                        <input type="text" id="email" class="form-control border-info" name="email"
+                                            value="{{ auth()->user()->email }}">
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="name"
+                                        <label for="password"
                                             class="form-label text-dark d-flex justify-content-center">Your
-                                            Name</label>
-                                        <input type="text" id="name" class="form-control border-info" name="name"
-                                            value="{{ auth()->user()->name }}">
+                                            Password</label>
+                                        <input type="text" id="password" class="form-control border-info"
+                                            name="password">
                                     </div>
                                 </div>
                                 <div class="d-grid">
@@ -42,34 +42,53 @@
                 </div>
             </div>
             <div class="bg-azure" data-aos="fade">
-                <div class="container py-3">
-                    <p class="fs-2 fw-bold text-center text-dark">Your Order</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-dark">Product Type</th>
-                                <th scope="col" class="text-dark">Quantity</th>
-                                <th scope="col" class="text-dark">Total Price</th>
-                                <th scope="col" class="text-dark">Shipping Status</th>
-                                <th scope="col" class="text-dark">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Standard</td>
-                                <td>3</td>
-                                <td>Rp. 40.000</td>
-                                <td>Hasn't shipped yet</td>
-                                <td>
+                <p class="fs-2 fw-bold text-center text-dark pt-3">Your Order</p>
+                <div class="container">
+                    <div class="bg-dark rounded-5 mb-3 text-center">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3 fw-bold text-white">PRODUCT TYPE</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3 fw-bold text-white">QUANTITY</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3 fw-bold text-white">TOTAL PRICE</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3 fw-bold text-white">SHIPPING STATUS</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p class="mt-3 ms-3 fw-bold text-white">ACTION</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-5 border-top text-center">
+                        <div class="row ">
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3">Standard</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3">3</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3">Rp. 150.000</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="mt-3 ms-3">Hasn't shipped yet</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="mt-3 ms-3">
                                     {{-- <button class="btn btn-info text-white">Create Shipment</button> --}}
-                                    <button class="btn btn-warning btn-sm text-white">Edit Shipment</button>
-                                    <button class="btn btn-primary btn-sm text-white">Shipment Detail</button>
-                                    <button class="btn btn-success btn-sm text-white">Pay the Order</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <button class="btn btn-info btn-sm text-white">Edit Shipment</button>
+                                    <button class="btn btn-info btn-sm text-white">Shipment Detail</button>
+                                    <button class="btn btn-info btn-sm text-white">Pay the Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
     </section>
 @endsection
