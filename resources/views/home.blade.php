@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+    @include('users.components.500_error')
+
     <section>
         <div class="container pb-5">
             <p class="fs-1 fw-bold text-dark text-center pb-3">Why E-Donation</p>

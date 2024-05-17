@@ -1,6 +1,8 @@
 @extends('users.layout.template')
 
 @section('content')
+    @include('users.components.500_error')
+
     <section>
         <div style="padding-top: 120px;">
             <div class="container">
@@ -88,7 +90,8 @@
                                             <form action="{{ route('subtract_quantity', $item->id) }}" method="POST">
                                                 @csrf
                                                 <input hidden type="text" name="amount" value="1">
-                                                <button type="submit" class="btn btn-info btn-sm rounded-circle text-dark">
+                                                <button type="submit"
+                                                    class="btn btn-info btn-sm rounded-circle text-white">
                                                     <i class="bi bi-dash"></i>
                                                 </button>
                                             </form>
@@ -100,7 +103,8 @@
                                             <form action="{{ route('add_quantity', $item->id) }}" method="POST">
                                                 @csrf
                                                 <input hidden type="text" name="amount" value="1">
-                                                <button type="submit" class="btn btn-info btn-sm rounded-circle text-dark">
+                                                <button type="submit"
+                                                    class="btn btn-info btn-sm rounded-circle text-white">
                                                     <i class="bi bi-plus"></i>
                                                 </button>
                                             </form>
@@ -359,27 +363,9 @@
                                                         data-id="{{ $item->id }}" title="Cancel Order"><i
                                                             class="bi bi-calendar-x"></i></button>
                                                 </form>
-                                                <button class="btn btn-info btn-sm text-white" id="pay-button">Pay
+                                                <button class="btn btn-info btn-sm text-white pay-button"
+                                                    data-transaction="{{ $item->transaction->snapToken }}">Pay
                                                     Now</button>
-                                                @section('script-payment')
-                                                    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
-                                                    </script>
-                                                    <script type="text/javascript">
-                                                        document.getElementById('pay-button').onclick = function() {
-                                                            snap.pay('{{ $item->transaction->snapToken }}', {
-                                                                onSuccess: function(result) {
-                                                                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                                                                },
-                                                                onPending: function(result) {
-                                                                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                                                                },
-                                                                onError: function(result) {
-                                                                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                                                                }
-                                                            });
-                                                        };
-                                                    </script>
-                                                @endsection
                                             </div>
                                             <div class="modal fade" id="order_edit{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="addNewProductLabel" aria-hidden="true">
@@ -450,4 +436,32 @@
                 </div>
             </div>
     </section>
+@endsection
+
+@section('script-payment')
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.pay-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const dataTransaction = this.getAttribute('data-transaction');
+                    snap.pay(dataTransaction, {
+                        onSuccess: function(result) {
+                            document.getElementById('result-json').innerHTML += JSON
+                                .stringify(result, null, 2);
+                        },
+                        onPending: function(result) {
+                            document.getElementById('result-json').innerHTML += JSON
+                                .stringify(result, null, 2);
+                        },
+                        onError: function(result) {
+                            document.getElementById('result-json').innerHTML += JSON
+                                .stringify(result, null, 2);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
