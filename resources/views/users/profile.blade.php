@@ -8,7 +8,7 @@
                     <p class="fs-2 fw-bold text-center text-dark">{{ ucfirst(auth()->user()->name) }}'s Profile</p>
                     <div class="card border-0 bg-azure shadow-sm">
                         <div class="card-body">
-                            <form action="">
+                            <form action="{{ route('update_profile', auth()->user()->id) }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-4">
@@ -29,7 +29,7 @@
                                         <label for="password"
                                             class="form-label text-dark d-flex justify-content-center">Your
                                             Password</label>
-                                        <input type="text" id="password" class="form-control border-info"
+                                        <input type="password" id="password" class="form-control border-info"
                                             name="password">
                                     </div>
                                 </div>
@@ -38,6 +38,11 @@
                                 </div>
                             </form>
                         </div>
+                        @if (session('profile'))
+                            <div class="alert alert-sm alert-info mx-3">
+                                {{ session('profile') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

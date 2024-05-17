@@ -16,15 +16,20 @@ Route::get('/', function () {
 
 Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
     Route::resource('/order', OrderController::class);
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::controller(UserController::class)->group(function(){
+        Route::get('/profile', 'profile')->name('profile');
+        Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
+    });
 });
 
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+    });
     Route::resource('/product', ProductController::class);
 });
 
-Route::controller(AuthController::class)->group(function () {
+Route::controller(AuthController::class)->group(function() {
     Route::get('/register', 'register')->name('register');
     Route::post('/store_register', 'store_register')->name('store_register');
     Route::get('/login', 'login')->name('login');

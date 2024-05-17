@@ -31,7 +31,7 @@
                         <ul class="navbar-nav">
                             @if (auth()->check())
                                 <li class="nav-item">
-                                    <a href="/profile"
+                                    <a href={{ auth()->user()->role == 'user' ? '/profile' : '/dashboard' }}
                                         class="nav-link fw-bold text-info">{{ Str::upper(auth()->user()->name) }}</a>
                                 </li>
                                 <li class="nav-item">
