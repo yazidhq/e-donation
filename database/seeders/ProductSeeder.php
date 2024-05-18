@@ -30,7 +30,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::insert([
-            'name' => 'deluve',
+            'name' => 'deluxe',
             'description' => 'various items for wider',
             'price' => '790000',
             'stock' => '100',
