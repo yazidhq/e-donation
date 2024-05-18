@@ -23,8 +23,6 @@ class TransactionController extends Controller
             $shipment->status = "preparation for shipping";
             $shipment->save();
 
-            throw new \Exception('Intentional error for testing');
-
             $product = Product::where("id", $transaction->order->product->id)->first();
             $product->stock -= $transaction->order->amount;
             $product->save();

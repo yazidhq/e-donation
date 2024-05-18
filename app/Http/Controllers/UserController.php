@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function profile(){
-        $orders = Order::where('user_id', auth()->user()->id)->get();
+        $orders = Order::with('product', 'transaction', 'shipment')->where('user_id', auth()->user()->id)->get();
         return view("users.profile", compact('orders'));
     }
 
