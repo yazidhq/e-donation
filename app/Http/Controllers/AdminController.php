@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Shipment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +18,7 @@ class AdminController extends Controller
     public function users()
     {
         $users = User::with('order')->get();
-        return view("admin.users", compact("users"));
+        return view("admin.users.users", compact("users"));
     }
     
     public function store_users(Request $request)
@@ -71,6 +73,28 @@ class AdminController extends Controller
 
     public function user_orders(Int $id)
     {
-        dd($id);
+        $user = User::with('order.product', 'order.shipment', 'order.transaction')->where('id', $id)->first();
+        return view("admin.users.user_order", compact("user"));
+    }
+
+    public function user_order_detail(Int $id)
+    {
+        $order = Order::where('id', $id)->first();
+        $shipment = Shipment::where('order_id', $order->id)->first();
+        return view("admin.users.user_order_detail", compact("order", "shipment"));
+    }
+
+    public function delete_order(Int $id)
+    {
+        $order = Order::where('id', $id)->first();
+        $order->delete();
+        return redirect()->back()->with('order', 'The order has been deleted successfully!');
+    }
+
+    public function delete_shipment(Int $id)
+    {
+        $shipment = Shipment::where('id', $id)->first();
+        $shipment->delete();
+        return redirect()->back()->with('order', 'The order has been deleted successfully!');
     }
 }
