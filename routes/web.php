@@ -31,16 +31,24 @@ Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
     Route::controller(UserController::class)->group(function() {
         Route::get('/profile', 'profile')->name('profile');
         Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
+
         Route::post('/store_shipment', 'store_shipment')->name('store_shipment');
         Route::post('/update_shipment/{id}', 'update_shipment')->name('update_shipment');
     });
 });
 
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+    Route::resource('/product', ProductController::class);
+
     Route::controller(AdminController::class)->group(function() {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
+
+        Route::get('/users', 'users')->name('users');
+        Route::post('/store_users', 'store_users')->name('store_users');
+        Route::post('/update_users/{id}', 'update_users')->name('update_users');
+        Route::post('/delete_user/{id}', 'delete_user')->name('delete_user');
+        Route::get('/users/orders/{id}', 'user_orders')->name('user_orders');
     });
-    Route::resource('/product', ProductController::class);
 });
 
 Route::controller(AuthController::class)->group(function() {
