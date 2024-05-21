@@ -37,20 +37,28 @@ class UserController extends Controller
     }
 
     public function store_shipment(Request $request){
-        $order = Order::where('id', $request->order_id)->first();
-        $order->is_created_shipment = true;
-        $order->save();
+        DB::beginTransaction();
 
-        $shipment = new Shipment();
-        $shipment->order_id  = $request->order_id ;
-        $shipment->place_name = $request->place_name;
-        $shipment->city = $request->city;
-        $shipment->province = $request->province;
-        $shipment->postal_code = $request->postal_code;
-        $shipment->address = $request->address;
-        $shipment->save();
+        try {
+            $order = Order::where('id', $request->order_id)->first();
+            $order->is_created_shipment = true;
+            $order->save();
 
-        return redirect()->back()->with('order', 'Your shipment has been created successfully!');
+            $shipment = new Shipment();
+            $shipment->order_id  = $request->order_id ;
+            $shipment->place_name = $request->place_name;
+            $shipment->city = $request->city;
+            $shipment->province = $request->province;
+            $shipment->postal_code = $request->postal_code;
+            $shipment->address = $request->address;
+            $shipment->save();
+
+            DB::commit();
+            return redirect()->back()->with('order', 'Your shipment has been created successfully!');
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return redirect()->back()->with('server_error', '500: Server error');
+        }
     }
 
     public function update_shipment(Request $request, Int $id){
