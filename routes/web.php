@@ -48,8 +48,10 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::post('/update_users/{id}', 'update_users')->name('update_users');
         Route::post('/delete_user/{id}', 'delete_user')->name('delete_user');
 
-        Route::get('/users/orders/{id}', 'user_orders')->name('user_orders');
-        Route::get('/users/orders/{id}/order', 'user_order_detail')->name('user_order_detail');
+        Route::get('/users/{id}/orders', 'user_orders')->name('user_orders');
+        Route::get('/users/{userId}/detail_order/{orderId}', 'detail_user_order')->name('detail_user_order');
+        Route::get('/users/{userId}/edit_order/{orderId}', 'edit_user_order')->name('edit_user_order');
+        Route::post('/users/{userId}/order/{orderId}', 'update_user_order')->name('update_user_order');
         Route::post('/users/delete_order/{id}', 'delete_order')->name('delete_order');
         Route::post('/users/delete_shipment/{id}', 'delete_shipment')->name('delete_shipment');
     });

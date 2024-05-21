@@ -23,6 +23,20 @@
                         </script>
                     @endif
 
+                    @if (session('failed_order'))
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "error",
+                                    title: "{{ session('failed_order') }}",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            });
+                        </script>
+                    @endif
+
                     <div class="card info-card sales-card">
                         <div class="card-body pt-3">
                             <table class="table table-responsive datatable">
@@ -33,6 +47,7 @@
                                         <th scope="col">Total Price</th>
                                         <th scope="col">Shipment Status</th>
                                         <th scope="col">Payment Status</th>
+                                        <th scope="col">Shipping</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -48,32 +63,54 @@
                                                 @if ($item->is_created_shipment == false)
                                                     Not yet shipped
                                                 @elseif($item->is_created_shipment == true)
-                                                    @if ($item->shipment->status == 'payment pending')
-                                                        Awaiting payment
-                                                    @endif
-                                                    @if ($item->shipment && $item->shipment->status != 'payment pending')
-                                                        {{ ucfirst($item->shipment->status) }}
+                                                    @if ($item->shipment)
+                                                        @if ($item->shipment->status == 'payment pending')
+                                                            Awaiting payment
+                                                        @endif
+                                                        @if ($item->shipment && $item->shipment->status != 'payment pending')
+                                                            {{ ucfirst($item->shipment->status) }}
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </td>
                                             <td>{{ ucfirst($item->transaction->status) }}</td>
                                             <td>
                                                 <div class="d-flex gap-1">
-                                                    <a href="{{ route('user_order_detail', $item->id) }}"
+                                                    <a href="{{ route('edit_user_order', ['userId' => $user->id, 'orderId' => $item->id]) }}"
+                                                        class="btn btn-sm btn-warning text-white" title="Edit Shipment"
+                                                        @if ($item->transaction->status != 'pending' || !$item->is_created_shipment) style="pointer-events: none;opacity: 0.6;cursor: not-allowed;" @endif>
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </a>
+                                                    <form id="deleteForm_{{ $item->id }}_shipment"
+                                                        action="{{ route('delete_shipment', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="button" class="btn btn-sm btn-danger delete-product"
+                                                            data-id="{{ $item->id }}_shipment" title="Delete Shipment"
+                                                            {{ $item->transaction->status != 'pending' || !$item->is_created_shipment ? 'disabled' : '' }}>
+                                                            <i class="bi bi-x-square"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex gap-1">
+                                                    <a href="{{ route('detail_user_order', ['userId' => $user->id, 'orderId' => $item->id]) }}"
                                                         class="btn btn-sm btn-info text-white" title="Order Detail">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
-                                                    <form id="deleteForm_{{ $item->id }}"
+                                                    <form id="deleteForm_{{ $item->id }}_order"
                                                         action="{{ route('delete_order', $item->id) }}" method="POST">
                                                         @csrf
                                                         <button type="button" class="btn btn-sm btn-danger delete-product"
-                                                            data-id="{{ $item->id }}" title="Delete Order">
+                                                            data-id="{{ $item->id }}_order" title="Delete Order"
+                                                            {{ $item->transaction->status != 'pending' ? 'disabled' : '' }}>
                                                             <i class="bi bi-x-square"></i>
                                                         </button>
                                                     </form>
                                                     <button class="btn btn-sm btn-success text-white"
-                                                        title="Shipping Detail">
-                                                        <i class="bi bi-check-square" title="Finish Order"></i>
+                                                        title="Finish the Order"
+                                                        {{ $item->transaction->status == 'pending' ? 'disabled' : '' }}>
+                                                        <i class="bi bi-check-square"></i>
                                                     </button>
                                                 </div>
                                             </td>
