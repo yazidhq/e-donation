@@ -95,7 +95,22 @@
                                                     @endif
                                                 @endif
                                             </td>
-                                            <td>{{ ucfirst($item->transaction->status) }}</td>
+                                            <td>
+                                                <div class="d-grid">
+                                                    <button
+                                                        class="btn btn-{{ $item->transaction->status == 'done' ? 'success' : ($item->transaction->status == 'expired' ? 'danger' : 'warning') }} btn-sm"
+                                                        @disabled(true)>
+                                                        @if ($item->transaction->status == 'done')
+                                                            <i class="bi bi-check-circle px-1"></i>
+                                                        @elseif ($item->transaction->status == 'expired')
+                                                            <i class="bi bi-exclamation-square px-1"></i>
+                                                        @else
+                                                            <i class="bi bi-arrow-clockwise px-1"></i>
+                                                        @endif
+                                                        {{ ucfirst($item->transaction->status) }}
+                                                    </button>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="d-flex gap-1">
                                                     <a href="{{ route('edit_user_order', ['userId' => $user->id, 'orderId' => $item->id]) }}"
@@ -125,7 +140,7 @@
                                                         @csrf
                                                         <button type="button" class="btn btn-sm btn-danger delete-product"
                                                             data-id="{{ $item->id }}_order" title="Delete Order"
-                                                            {{ $item->transaction->status != 'pending' && $item->shipment->status != 'delivered' ? 'disabled' : '' }}>
+                                                            {{ $item->transaction->status == 'done' ? 'disabled' : '' }}>
                                                             <i class="bi bi-x-square"></i>
                                                         </button>
                                                     </form>
@@ -136,7 +151,7 @@
                                                         <input hidden type="text" name="status" value="delivered">
                                                         <button type="submit" class="btn btn-sm btn-success text-white"
                                                             title="Finish the Order"
-                                                            {{ $item->transaction->status == 'pending' || $item->shipment->status == 'delivered' ? 'disabled' : '' }}>
+                                                            {{ $item->transaction->status != 'done' || ($item->shipment ? $item->shipment->status : '') == 'delivered' ? 'disabled' : '' }}>
                                                             <i class="bi bi-check-square"></i>
                                                         </button>
                                                     </form>

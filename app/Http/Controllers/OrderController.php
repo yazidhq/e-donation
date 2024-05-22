@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +17,23 @@ class OrderController extends Controller
         \Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
         \Midtrans\Config::$is3ds = config('midtrans.is3ds');
 
+        $start_time = Carbon::now()->format('Y-m-d H:i:s O');
+        $expiry_duration = 720;
+        $expiry_time = Carbon::parse($start_time)->addMinutes($expiry_duration)->format('Y-m-d H:i:s O');
+
         $params = array(
             'transaction_details' => array(
                 'order_id' => rand(),
                 'gross_amount' => $amount_price,
+            ),
+            'expiry' => array(
+                'start_time' => $start_time,
+                'unit' => 'minute',
+                'duration' => $expiry_duration
             )
         );
 
+        $transaction->expiry = $expiry_time;
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $transaction->snapToken = $snapToken;
         $transaction->save();

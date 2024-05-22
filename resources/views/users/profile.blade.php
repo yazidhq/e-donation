@@ -80,7 +80,7 @@
                     </div>
                     <div class="pb-5 border-top text-center">
                         @foreach ($orders as $item)
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col-sm-2">
                                     <p class="mt-3 ms-3 fw-bold text-dark">{{ Str::upper($item->product->name) }}</p>
                                 </div>
@@ -123,87 +123,113 @@
                                     @if (!$item->is_created_shipment)
                                         <p class="mt-3 ms-3">Create shipment first!</p>
                                     @elseif($item->is_created_shipment)
-                                        <p class="mt-3 ms-3">{{ ucfirst($item->shipment->status) }}</p>
+                                        @if ($item->transaction->status != 'expired')
+                                            <p class="mt-3 ms-3">{{ ucfirst($item->shipment->status) }}</p>
+                                        @else
+                                            <p class="mt-3 ms-3">Expired Order</p>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="mt-3 ms-3">
                                         @if (!$item->is_created_shipment)
-                                            <div class="d-flex justify-content-center gap-1">
-                                                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
-                                                    data-bs-target="#shipment{{ $item->id }}">Create Shipment</button>
-                                            </div>
-                                            <div class="modal fade" id="shipment{{ $item->id }}" tabindex="-1"
-                                                aria-labelledby="addNewProductLabel" aria-hidden="true">
-                                                <div class="modal-dialog border-top border-5 border-info">
-                                                    <div class="modal-content border-0">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="addNewProductLabel">
-                                                                CREATE SHIPMENT - {{ Str::upper($item->product->name) }}
-                                                            </h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form action="{{ route('store_shipment') }}" method="POST">
-                                                                @csrf
-                                                                <input hidden type="text" name="order_id"
-                                                                    value="{{ $item->id }}">
-                                                                <div>
-                                                                    <label for="place_name" class="form-label">Place
-                                                                        Name</label>
-                                                                    <input type="text" id="place_name"
-                                                                        name="place_name" class="form-control" required>
-                                                                </div>
-                                                                <br>
-                                                                <div class="row">
-                                                                    <div class="col-sm-4">
-                                                                        <label for="city"
-                                                                            class="form-label">City</label>
-                                                                        <input type="text" id="city"
-                                                                            class="form-control" name="city" required>
-                                                                    </div>
-                                                                    <div class="col-sm-4">
-                                                                        <label for="province"
-                                                                            class="form-label">Province</label>
-                                                                        <input type="text" id="province"
-                                                                            class="form-control" name="province" required>
-                                                                    </div>
-                                                                    <div class="col-sm-4">
-                                                                        <label for="postal_code" class="form-label">Postal
-                                                                            Code</label>
-                                                                        <input type="text" id="postal_code"
-                                                                            class="form-control" name="postal_code"
+                                            @if ($item->transaction->status != 'expired')
+                                                <div class="d-flex justify-content-center gap-1">
+                                                    <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
+                                                        data-bs-target="#shipment{{ $item->id }}">Create
+                                                        Shipment</button>
+                                                </div>
+                                                <div class="modal fade" id="shipment{{ $item->id }}" tabindex="-1"
+                                                    aria-labelledby="addNewProductLabel" aria-hidden="true">
+                                                    <div class="modal-dialog border-top border-5 border-info">
+                                                        <div class="modal-content border-0">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="addNewProductLabel">
+                                                                    CREATE SHIPMENT -
+                                                                    {{ Str::upper($item->product->name) }}
+                                                                </h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('store_shipment') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <input hidden type="text" name="order_id"
+                                                                        value="{{ $item->id }}">
+                                                                    <div>
+                                                                        <label for="place_name" class="form-label">Place
+                                                                            Name</label>
+                                                                        <input type="text" id="place_name"
+                                                                            name="place_name" class="form-control"
                                                                             required>
                                                                     </div>
-                                                                </div>
-                                                                <br>
-                                                                <div>
-                                                                    <label for="address"
-                                                                        class="form-label">Address</label>
-                                                                    <textarea type="text" id="address" name="address" class="form-control" required></textarea>
-                                                                </div>
-                                                                <br>
-                                                                <div class="d-grid">
-                                                                    <button type="submit"
-                                                                        class="btn btn-info text-white">Submit
-                                                                        Shipment</button>
-                                                                </div>
-                                                            </form>
+                                                                    <br>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4">
+                                                                            <label for="city"
+                                                                                class="form-label">City</label>
+                                                                            <input type="text" id="city"
+                                                                                class="form-control" name="city"
+                                                                                required>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <label for="province"
+                                                                                class="form-label">Province</label>
+                                                                            <input type="text" id="province"
+                                                                                class="form-control" name="province"
+                                                                                required>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <label for="postal_code"
+                                                                                class="form-label">Postal
+                                                                                Code</label>
+                                                                            <input type="text" id="postal_code"
+                                                                                class="form-control" name="postal_code"
+                                                                                required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div>
+                                                                        <label for="address"
+                                                                            class="form-label">Address</label>
+                                                                        <textarea type="text" id="address" name="address" class="form-control" required></textarea>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="d-grid">
+                                                                        <button type="submit"
+                                                                            class="btn btn-info text-white">Submit
+                                                                            Shipment</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                <p>-</p>
+                                            @endif
                                         @elseif($item->is_created_shipment)
                                             <div class="d-flex justify-content-center gap-1">
                                                 @if ($item->shipment->status == 'payment pending')
-                                                    <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
-                                                        data-bs-target="#shipment_edit{{ $item->id }}"
-                                                        title="Edit Shipment"><i class="bi bi-pencil-square"></i></button>
+                                                    @if ($item->transaction->status != 'expired')
+                                                        <button class="btn btn-info btn-sm text-white"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#shipment_edit{{ $item->id }}"
+                                                            title="Edit Shipment">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </button>
+                                                    @else
+                                                        <p>-</p>
+                                                    @endif
                                                 @endif
-                                                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
-                                                    data-bs-target="#shipment_detail{{ $item->id }}"
-                                                    title="Shipment Detail"><i class="bi bi-eye"></i></button>
+                                                @if ($item->transaction->status != 'expired')
+                                                    <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
+                                                        data-bs-target="#shipment_detail{{ $item->id }}"
+                                                        title="Shipment Detail">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                @endif
                                             </div>
                                             <div class="modal fade" id="shipment_edit{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="addNewProductLabel" aria-hidden="true">
@@ -328,11 +354,18 @@
                                                                 </div>
                                                             </div>
                                                             <br>
-                                                            @if ($item->shipment->status == 'payment pending')
+                                                            @if ($item->transaction->status == 'pending')
                                                                 <div class="d-grid">
                                                                     <div class="badge text-bg-warning text-white py-2"
                                                                         style="opacity: 0.7">
                                                                         <span>Payment pending</span>
+                                                                    </div>
+                                                                </div>
+                                                            @elseif($item->transaction->status == 'expired')
+                                                                <div class="d-grid">
+                                                                    <div class="badge text-bg-danger text-white py-2"
+                                                                        style="opacity: 0.7">
+                                                                        <span>Expired</span>
                                                                     </div>
                                                                 </div>
                                                             @else
@@ -354,14 +387,28 @@
                                     <div class="mt-3 ms-3">
                                         @if (!$item->is_created_shipment)
                                             <div class="d-flex justify-content-center gap-1">
-                                                <form id="deleteForm_{{ $item->id }}"
-                                                    action="{{ route('cancel_order', $item->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="button"
-                                                        class="btn btn-info btn-sm text-white delete-order"
-                                                        data-id="{{ $item->id }}">Cancel
-                                                        Order</button>
-                                                </form>
+                                                @if ($item->transaction->status == 'expired')
+                                                    <button class="btn btn-danger btn-sm text-white"
+                                                        @disabled(true)>Order
+                                                        Expired</button>
+                                                    <form id="deleteForm_{{ $item->id }}"
+                                                        action="{{ route('cancel_order', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="button"
+                                                            class="btn btn-danger btn-sm text-white delete-order"
+                                                            data-id="{{ $item->id }}" title="Cancel Order"><i
+                                                                class="bi bi-calendar-x"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form id="deleteForm_{{ $item->id }}"
+                                                        action="{{ route('cancel_order', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="button"
+                                                            class="btn btn-info btn-sm text-white delete-order"
+                                                            data-id="{{ $item->id }}">Cancel
+                                                            Order</button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         @elseif($item->is_created_shipment)
                                             <div class="d-flex justify-content-center gap-1">
@@ -382,9 +429,23 @@
                                                         data-transaction-id="{{ $item->transaction->id }}">Pay
                                                         Now</button>
                                                 @else
-                                                    <button class="btn btn-success btn-sm text-white"
-                                                        @disabled(true)>Payment
-                                                        Successful</button>
+                                                    @if ($item->transaction->status == 'done')
+                                                        <button class="btn btn-success btn-sm text-white"
+                                                            @disabled(true)>Payment
+                                                            Successful</button>
+                                                    @else
+                                                        <button class="btn btn-danger btn-sm text-white"
+                                                            @disabled(true)>Expired Order</button>
+                                                        <form id="deleteForm_{{ $item->id }}"
+                                                            action="{{ route('cancel_order', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-sm text-white delete-order"
+                                                                data-id="{{ $item->id }}" title="Cancel Order"><i
+                                                                    class="bi bi-calendar-x"></i></button>
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             </div>
                                             <div class="modal fade" id="order_edit{{ $item->id }}" tabindex="-1"

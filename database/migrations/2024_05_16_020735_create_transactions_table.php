@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('status')->default('pending');
+            $table->string('expiry')->nullable(true);
             $table->string('snapToken')->nullable(true);
             $table->timestamps();
 

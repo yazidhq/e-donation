@@ -33,30 +33,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="rounded-0 shadow-sm">
-                                        <div class="border-top border-5 border-info">
-                                            <p class="fw-bold p-3 border-bottom">
-                                                RECIPIENT</p>
-                                        </div>
-                                        <div class="d-flex px-3 border-bottom">
-                                            <p>Place Name</p>
-                                            <p class="ms-auto">{{ $order->shipment->place_name }}
-                                            </p>
-                                        </div>
-                                        <div class="d-flex px-3 pt-3 border-bottom">
-                                            <p>Province - City - Postal Code</p>
-                                            <p class="ms-auto">{{ $order->shipment->province }} -
-                                                {{ $order->shipment->city }}
-                                                - {{ $order->shipment->postal_code }}
-                                            </p>
-                                        </div>
-                                        <div class="d-flex px-3 pt-3 border-bottom">
-                                            <p>Address</p>
-                                            <p class="ms-auto">{{ $order->shipment->address }}</p>
+                                @if ($order->shipment)
+                                    <div class="col-md-6">
+                                        <div class="rounded-0 shadow-sm">
+                                            <div class="border-top border-5 border-info">
+                                                <p class="fw-bold p-3 border-bottom">
+                                                    RECIPIENT</p>
+                                            </div>
+                                            <div class="d-flex px-3 border-bottom">
+                                                <p>Place Name</p>
+                                                <p class="ms-auto">{{ $order->shipment->place_name }}
+                                                </p>
+                                            </div>
+                                            <div class="d-flex px-3 pt-3 border-bottom">
+                                                <p>Province - City - Postal Code</p>
+                                                <p class="ms-auto">{{ $order->shipment->province }} -
+                                                    {{ $order->shipment->city }}
+                                                    - {{ $order->shipment->postal_code }}
+                                                </p>
+                                            </div>
+                                            <div class="d-flex px-3 pt-3 border-bottom">
+                                                <p>Address</p>
+                                                <p class="ms-auto">{{ $order->shipment->address }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
 
                             <div class="d-grid mt-4">
