@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Shipment;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\ShipmentStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -75,7 +76,8 @@ class AdminController extends Controller
     public function user_orders(Int $id)
     {
         $user = User::with('order.product', 'order.shipment', 'order.transaction')->where('id', $id)->first();
-        return view("admin.users.user_order", compact("user"));
+        $shipment_status = ShipmentStatus::get();
+        return view("admin.users.user_order", compact("user", "shipment_status"));
     }
 
     public function detail_user_order(Int $userId, Int $orderId)
@@ -146,6 +148,13 @@ class AdminController extends Controller
             DB::rollBack();
             return redirect()->back()->with('failed_order', 'Failed delete the shipment!');
         }
-       
+    }
+
+    public function update_shipment_status(Request $request, Int $id)
+    {
+        $shipment = Shipment::where('id', $id)->first();
+        $shipment->status = $request->status;
+        $shipment->save();
+        return redirect()->back()->with('order', 'The shipment status has been updated successfully!');
     }
 }

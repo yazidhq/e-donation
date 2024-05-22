@@ -68,7 +68,29 @@
                                                             Awaiting payment
                                                         @endif
                                                         @if ($item->shipment && $item->shipment->status != 'payment pending')
-                                                            {{ ucfirst($item->shipment->status) }}
+                                                            <form
+                                                                action="{{ route('update_shipment_status', $item->shipment->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="d-flex gap-2">
+                                                                    <div class="input-group input-group-sm">
+                                                                        <select name="status" class="form-control">
+                                                                            <option hidden
+                                                                                value="{{ $item->shipment->status }}">
+                                                                                {{ ucfirst($item->shipment->status) }}
+                                                                            </option>
+                                                                            @foreach ($shipment_status as $status)
+                                                                                <option value="{{ $status->status }}">
+                                                                                    {{ ucfirst($status->status) }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <button class="btn btn-info text-white">
+                                                                            <i class="bi bi-arrow-right-square"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                         @endif
                                                     @endif
                                                 @endif
@@ -103,15 +125,21 @@
                                                         @csrf
                                                         <button type="button" class="btn btn-sm btn-danger delete-product"
                                                             data-id="{{ $item->id }}_order" title="Delete Order"
-                                                            {{ $item->transaction->status != 'pending' ? 'disabled' : '' }}>
+                                                            {{ $item->transaction->status != 'pending' && $item->shipment->status != 'delivered' ? 'disabled' : '' }}>
                                                             <i class="bi bi-x-square"></i>
                                                         </button>
                                                     </form>
-                                                    <button class="btn btn-sm btn-success text-white"
-                                                        title="Finish the Order"
-                                                        {{ $item->transaction->status == 'pending' ? 'disabled' : '' }}>
-                                                        <i class="bi bi-check-square"></i>
-                                                    </button>
+                                                    <form
+                                                        @if ($item->shipment) action="{{ route('update_shipment_status', $item->shipment->id) }}" @endif
+                                                        method="POST">
+                                                        @csrf
+                                                        <input hidden type="text" name="status" value="delivered">
+                                                        <button type="submit" class="btn btn-sm btn-success text-white"
+                                                            title="Finish the Order"
+                                                            {{ $item->transaction->status == 'pending' || $item->shipment->status == 'delivered' ? 'disabled' : '' }}>
+                                                            <i class="bi bi-check-square"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

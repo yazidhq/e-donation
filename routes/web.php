@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShipmentStatusController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Models\Product;
@@ -40,6 +41,8 @@ Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::resource('/product', ProductController::class);
 
+    Route::resource('/shipment_status', ShipmentStatusController::class);
+
     Route::controller(AdminController::class)->group(function() {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
 
@@ -54,6 +57,7 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::post('/users/{userId}/order/{orderId}', 'update_user_order')->name('update_user_order');
         Route::post('/users/delete_order/{id}', 'delete_order')->name('delete_order');
         Route::post('/users/delete_shipment/{id}', 'delete_shipment')->name('delete_shipment');
+        Route::post('/users/update_shipment_status/{id}', 'update_shipment_status')->name('update_shipment_status');
     });
 });
 

@@ -14,14 +14,24 @@
         <li class="nav-item shadow-sm">
             <a class="nav-link {{ request()->route()->getName() == 'product.index' ? '' : 'collapsed' }}"
                 href="/product">
-                <i class="ri-briefcase-2-fill text-dark"></i>
+                <i class="bi bi-cart-plus"></i>
                 <span class="text-dark">Products</span>
             </a>
         </li>
 
         <li class="nav-item shadow-sm">
+            <a class="nav-link {{ request()->route()->getName() == 'shipment_status.index' ? '' : 'collapsed' }}"
+                href="/shipment_status">
+                <i class="bi bi-truck-front"></i>
+                <span class="text-dark">Shipment Status</span>
+            </a>
+        </li>
+
+        <li class="nav-heading mt-4">Transactions</li>
+
+        <li class="nav-item shadow-sm">
             <a class="nav-link {{ request()->route()->getName() == 'users' ? '' : 'collapsed' }}" href="/users">
-                <i class="ri-briefcase-2-fill text-dark"></i>
+                <i class="bi bi-people"></i>
                 <span class="text-dark">Users</span>
             </a>
         </li>

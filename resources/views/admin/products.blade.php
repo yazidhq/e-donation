@@ -11,8 +11,12 @@
 
                     <div class="d-flex mb-3">
                         <div><a href="" class="btn btn-info px-5 text-white">Refresh</a></div>
-                        <div class="ms-auto"><button type="button" class="btn btn-info text-white px-5 text-end"
-                                data-bs-toggle="modal" data-bs-target="#addNewProduct">Add new product</button></div>
+                        <div class="ms-auto">
+                            <button type="button" class="btn btn-info text-white text-end" data-bs-toggle="modal"
+                                data-bs-target="#addNewProduct">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="modal fade" id="addNewProduct" tabindex="-1" aria-labelledby="addNewProductLabel"
