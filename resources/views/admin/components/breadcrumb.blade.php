@@ -11,6 +11,10 @@
             @endif
             {{ Str::upper($order->user->name) }}'S
             {{ Str::after(Str::after(Str::upper(Str::before(request()->route()->getName(), '.')), '_'), '_') }}
+        @elseif(request()->route()->getName() == 'new_order')
+            NEW ORDERS
+        @elseif(request()->route()->getName() == 'dispatch_list')
+            DISPATCH LIST
         @else
             {{ Str::after(Str::upper(Str::before(request()->route()->getName(), '.')), '_') }}
         @endif
@@ -32,6 +36,10 @@
                         Edit
                     @endif
                     {{ ucfirst(Str::after(Str::after(Str::before(request()->route()->getName(), '.'), '_'), '_')) }}
+                @elseif(request()->route()->getName() == 'new_order')
+                    New Orders
+                @elseif(request()->route()->getName() == 'dispatch_list')
+                    Dispatch List
                 @else
                     {{ ucfirst(Str::after(Str::before(request()->route()->getName(), '.'), '_')) }}
                 @endif

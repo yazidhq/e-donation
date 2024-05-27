@@ -36,6 +36,29 @@
             </a>
         </li>
 
+        <li class="nav-item shadow-sm">
+            <a class="nav-link {{ request()->route()->getName() == 'new_order' ? '' : 'collapsed' }}" href="/new_order">
+                <i class="bi bi-list-ul"></i>
+                <span class="text-dark">New Orders</span>
+            </a>
+        </li>
+
+        <li class="nav-item shadow-sm">
+            <a class="nav-link {{ request()->route()->getName() == 'dispatch_list' ? '' : 'collapsed' }}"
+                href="/dispatch_list">
+                <i class="bi bi-truck"></i>
+                <span class="text-dark">Dispatch List</span>
+            </a>
+        </li>
+
+        <li class="nav-item shadow-sm">
+            <a class="nav-link {{ request()->route()->getName() == 'expired_orders' ? '' : 'collapsed' }}"
+                href="/expired_orders">
+                <i class="bi bi-exclamation-square"></i>
+                <span class="text-dark">Expired Orders</span>
+            </a>
+        </li>
+
         <li class="nav-heading mt-4">Preferences</li>
 
         <li class="nav-item shadow-sm">

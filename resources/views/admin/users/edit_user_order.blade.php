@@ -9,6 +9,20 @@
             <div class="row">
                 <div class="col-12">
 
+                    @if (session('order'))
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: "{{ session('order') }}",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            });
+                        </script>
+                    @endif
+
                     <div class="card info-card sales-card">
                         <div class="card-body pt-3">
                             @if ($order->is_created_shipment)

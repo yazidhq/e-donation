@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Shipment;
 use Illuminate\Http\Request;
 use App\Models\ShipmentStatus;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -116,10 +117,10 @@ class AdminController extends Controller
             $shipment->save();
 
             DB::commit();
-            return redirect()->route('user_orders', $user->id)->with('order', 'The order has been updated successfully!');
+            return redirect()->back()->with('order', 'The order has been updated successfully!');
         } catch (\Throwable $e) {
             DB::rollBack();
-            return redirect()->route('user_orders', $user->id)->with('failed_order', 'Failed update the order!');
+            return redirect()->back()->with('failed_order', 'Failed update the order!');
         }
     }
 
@@ -156,5 +157,24 @@ class AdminController extends Controller
         $shipment->status = $request->status;
         $shipment->save();
         return redirect()->back()->with('order', 'The shipment status has been updated successfully!');
+    }
+
+    public function new_order()
+    {
+        $transactions = Transaction::with('order.product', 'order.shipment', 'order.user')->where("status", "pending")->get();
+        return view('admin.orders.new_order', compact("transactions"));
+    }
+
+    public function dispatch_list()
+    {
+        $transactions = Transaction::with('order.product', 'order.shipment', 'order.user')->where("status", "done")->get();
+        $shipment_status = ShipmentStatus::get();
+        return view('admin.orders.dispatch_list', compact("transactions", "shipment_status"));
+    }
+
+    public function expired_orders()
+    {
+        $transactions = Transaction::with('order.product', 'order.shipment', 'order.user')->where("status", "expired")->get();
+        return view('admin.orders.expired_orders', compact("transactions"));
     }
 }

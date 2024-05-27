@@ -54,7 +54,9 @@
                                 <tbody>
                                     @foreach ($user->order as $item)
                                         <tr>
-                                            <td>{{ $item->product->name }}</td>
+                                            <td>
+                                                <p class="fw-bold text-info">{{ ucfirst($item->product->name) }}</p>
+                                            </td>
                                             <td>{{ $item->amount }}</td>
                                             <td>IDR
                                                 {{ number_format($item->amount * $item->product->price, '0', ',', '.') }},00

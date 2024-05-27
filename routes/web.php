@@ -58,6 +58,10 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::post('/users/delete_order/{id}', 'delete_order')->name('delete_order');
         Route::post('/users/delete_shipment/{id}', 'delete_shipment')->name('delete_shipment');
         Route::post('/users/update_shipment_status/{id}', 'update_shipment_status')->name('update_shipment_status');
+
+        Route::get('/new_order', 'new_order')->name('new_order');
+        Route::get('/dispatch_list', 'dispatch_list')->name('dispatch_list');
+        Route::get('/expired_orders', 'expired_orders')->name('expired_orders');
     });
 });
 
