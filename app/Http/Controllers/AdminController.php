@@ -15,7 +15,24 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view("admin.dashboard");
+        $users = User::where("role", "user")->get();
+        $orders = Order::join('transactions', 'orders.id', '=', 'transactions.order_id')
+                ->where('transactions.status', '!=', 'expired')
+                ->select('orders.*')
+                ->get();
+        $dispatchs = Order::join('transactions', 'orders.id', '=', 'transactions.order_id')
+                    ->where('transactions.status', '=', 'done')
+                    ->select('orders.*')
+                    ->get();
+        $expireds = Order::join('transactions', 'orders.id', '=', 'transactions.order_id')
+                    ->where('transactions.status', '=', 'expired')
+                    ->select('orders.*')
+                    ->get();
+
+        $transactions = Transaction::with('order.product', 'order.shipment', 'order.user')->where("status", "done")->get();
+        $shipment_status = ShipmentStatus::get();
+        
+        return view("admin.dashboard", compact("users", "orders", "dispatchs", "expireds", "transactions", "shipment_status"));
     }
 
     public function users()

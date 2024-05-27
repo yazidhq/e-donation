@@ -15,6 +15,8 @@
             NEW ORDERS
         @elseif(request()->route()->getName() == 'dispatch_list')
             DISPATCH LIST
+        @elseif(request()->route()->getName() == 'expired_orders')
+            EXPIRED ORDERS
         @else
             {{ Str::after(Str::upper(Str::before(request()->route()->getName(), '.')), '_') }}
         @endif
@@ -40,6 +42,8 @@
                     New Orders
                 @elseif(request()->route()->getName() == 'dispatch_list')
                     Dispatch List
+                @elseif(request()->route()->getName() == 'expired_orders')
+                    Expired Orders
                 @else
                     {{ ucfirst(Str::after(Str::before(request()->route()->getName(), '.'), '_')) }}
                 @endif
