@@ -84,7 +84,7 @@
 
         <li class="nav-item shadow-sm">
             <a class="nav-link {{ request()->route()->getName() == 'helpdesk' ? '' : 'collapsed' }}"
-                href="https://api.whatsapp.com/send?phone=6281339999352&amp;text=Halo,%20saya%20butuh%20bantuan"
+                href="https://api.whatsapp.com/send?phone={{ env('WHATSAPP_FOR_HELP_AND_SUPPORT') }}&amp;text=Halo,%20saya%20butuh%20bantuan"
                 target="_blank">
                 <i class="bi bi-question-circle text-dark"></i>
                 <span class="text-dark">Help & Support</span>
